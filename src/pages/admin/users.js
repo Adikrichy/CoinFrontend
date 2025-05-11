@@ -90,7 +90,7 @@ function UsersTableHeader() {
     return (
         <tr>
             <th>User Id</th> <th>Username</th> <th>Email</th>
-            <th>Tot. Expense(Rs.)</th> <th>Tot. Income(Rs.)</th>
+            <th>Tot. Expense(Kzt.)</th> <th>Tot. Income(Kzt.)</th>
             <th>Tot. No. Transactions</th> <th>Status</th> <th>Action</th>
         </tr>
     )
@@ -104,8 +104,8 @@ function UsersTableBody({ data, disableOrEnable }) {
                     <td>{"U" + String(item.id).padStart(5, '0')}</td>
                     <td>{item.username}</td>
                     <td>{item.email}</td>
-                    <td>Rs. {item.expense || 0.0}</td>
-                    <td>Rs. {item.income || 0.0}</td>
+                    <td>Kzt. {item.expense || 0.0}</td>
+                    <td>Kzt. {item.income || 0.0}</td>
                     <td>{item.noOfTransactions || 0}</td>
                     {
                         item.enabled ? <td style={{ color: '#6aa412' }}>Enabled</td> : <td style={{ color: '#ff0000' }}>Disabled</td>

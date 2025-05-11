@@ -14,7 +14,7 @@ const login_req = async (email, password) => {
 
   if (response.data.token) {
       console.log(response.data)
-      localStorage.setItem("user", JSON.stringify(response.data));
+      sessionStorage.setItem("user", JSON.stringify(response.data));
       window.location.reload()
   }
 
@@ -38,11 +38,11 @@ const resendRegistrationVerificationCode = async(email) => {
 }
 
 const getCurrentUser = () => {
-  return JSON.parse(localStorage.getItem("user"));
+  return JSON.parse(sessionStorage.getItem("user"));
 };
 
 const logout_req = () => {
-  localStorage.removeItem("user");
+  sessionStorage.removeItem("user");
 }
 
 const forgotPasswordVerifyEmail = async (email) => {
