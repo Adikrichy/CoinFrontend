@@ -21,7 +21,7 @@ function TransactionList({ list }) {
                                                 <p> {
                                                         t.transactionType === 1 ? "- " : "+ "
                                                     }
-                                                    Rs. {t.amount}</p>
+                                                    Kzt. {t.amount}</p>
                                             </div>
                                     </Link>
                                 ))

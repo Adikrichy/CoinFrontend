@@ -6,8 +6,8 @@ function Welcome() {
     return (
         <section className="hero-section">
             <Logo/>
-            <h2>Welcome to MyWallet!</h2>
-            <h3>Meet financial freedom with MyWallet. The application designed to revolutionize how you manage your expences and empower your financial journey.</h3>
+            <h2>Welcome to TengeKepeer!</h2>
+            <h3>Meet financial freedom with TengeKepeer. The application designed to revolutionize how you manage your expences and empower your financial journey.</h3>
 
             <div>
                 <Link to='/auth/login'><p><button>Log in</button></p></Link>

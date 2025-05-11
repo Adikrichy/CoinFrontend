@@ -98,7 +98,7 @@ function SavedTransactionList({ list, saveTransaction, skipTransaction }) {
                 t.dueInformation && <div className='st-card' key={t.planId}>
                 <div className='topic'>
                     <h4>{t.categoryName}</h4>
-                    <h4>{ t.transactionType === 1 ? "- " : "+ " } Rs. {t.amount}</h4>
+                    <h4>{ t.transactionType === 1 ? "- " : "+ " } Kzt. {t.amount}</h4>
                 </div>
                 <p>
                     {t.description}
