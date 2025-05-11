@@ -1,13 +1,28 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 export const ThemeContext = createContext();
 
 export const useTheme = () => {
-    const [isDarkMode, setDarkMode] = useState(window.matchMedia('(prefers-color-scheme:dark)').matches)
+    // Читаем тему из localStorage или из system preferences
+    const getInitialTheme = () => {
+        const saved = localStorage.getItem('theme');
+        if (saved !== null) return saved === 'dark';
+        return window.matchMedia('(prefers-color-scheme:dark)').matches;
+    };
+
+    const [isDarkMode, setDarkMode] = useState(getInitialTheme);
 
     const toggleTheme = () => {
-        setDarkMode(prev => !prev)
-    }
+        setDarkMode(prev => {
+            localStorage.setItem('theme', !prev ? 'dark' : 'light');
+            return !prev;
+        });
+    };
 
-    return [isDarkMode, toggleTheme]
-}
+    // Сохраняем тему при изменении
+    useEffect(() => {
+        localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+    }, [isDarkMode]);
+
+    return [isDarkMode, toggleTheme];
+};
