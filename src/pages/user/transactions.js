@@ -12,6 +12,7 @@ import { useLocation } from 'react-router-dom';
 import Info from '../../components/utils/Info.js';
 import Container from '../../components/utils/Container.js';
 import toast, { Toaster } from 'react-hot-toast';
+import { exportToCSV, exportToPDF, prepareTransactionData } from '../../components/utils/exportData';
 
 
 function Transactions() {
@@ -53,6 +54,36 @@ function Transactions() {
         location.state = null
     }, [])
 
+    const handleExport = (format) => {
+        // Собираем все транзакции в один массив
+        let allTransactions = [];
+        if (userTransactions && typeof userTransactions === 'object') {
+            Object.values(userTransactions).forEach(arr => {
+                if (Array.isArray(arr)) allTransactions = allTransactions.concat(arr);
+            });
+        }
+
+        console.log('allTransactions:', allTransactions, Array.isArray(allTransactions));
+
+        if (!Array.isArray(allTransactions) || allTransactions.length === 0) {
+            toast.error("No transactions to export!");
+            return;
+        }
+        try {
+            const preparedData = prepareTransactionData(allTransactions);
+            if (format === 'csv') {
+                exportToCSV(preparedData, 'transactions');
+                toast.success("CSV file downloaded successfully!");
+            } else if (format === 'pdf') {
+                exportToPDF(preparedData, 'transactions');
+                toast.success("PDF file downloaded successfully!");
+            }
+        } catch (error) {
+            console.error('Export error:', error);
+            toast.error("Failed to export data. Please try again.");
+        }
+    };
+
     return (
         <Container activeNavId={1}>
             <Header title="Transactions History" />
@@ -81,6 +112,16 @@ function Transactions() {
                     </div>
                     {(userTransactions.length === 0) && <Info text={"No transactions found!"} />}
                     {(userTransactions.length !== 0) && <TransactionList list={userTransactions} />}
+                    <div className='transactions-header'>
+                        <div className='export-buttons'>
+                            <button onClick={() => handleExport('csv')} className='export-btn'>
+                                <i className="fa fa-file-excel-o"></i> Export CSV
+                            </button>
+                            <button onClick={() => handleExport('pdf')} className='export-btn'>
+                                <i className="fa fa-file-pdf-o"></i> Export PDF
+                            </button>
+                        </div>
+                    </div>
                 </>
             }
         </Container>

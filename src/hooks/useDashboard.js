@@ -7,7 +7,7 @@ function useDashboard(currentMonth) {
     const [total_income, setIncome] = useState(0)
     const [total_expense, setExpense] = useState(0)
     const [no_of_transactions, setTransactions] = useState(0)
-    const cash_in_hand = total_income > total_expense ? Number((total_income - total_expense)?.toFixed(2)) : 0;
+    const cash_in_hand = Number((total_income - total_expense)?.toFixed(2));
     const [categories] = useCategories()
     const [categorySummary, setCategorySummary] = useState([])
     const [budgetAmount, setBudgetAmount] = useState(0)
